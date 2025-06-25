@@ -61,12 +61,17 @@
         *{
             box-sizing: border-box;
         }
-        body, html, form{
+        body, html{
             font-size: 10.5px;
             line-height: 10.5px;
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+            letter-spacing: -0.4px;
+        }
+        form, ul{
+            margin: 0;
+            padding: 0;
         }
         #wrap{
             text-align: center;
@@ -95,11 +100,13 @@
             content: '';
             z-index: 0;
             left: 1px;
-            top: 1px;
+            top: 50%;
+            left: 50%;
             width: 44px;
             height: 44px;
             background-color: #e7eced;
             border-radius: 50%;
+            transform: translate(-50%, -50%);
         }
         #header-hamburger > div, #header-naverpay > div, #header-notice > div{
             background-image: url(./sp_main.png);
@@ -118,9 +125,6 @@
         }
         #header-naverpay{
             right: 50px;
-            width: 46px;
-            height: 46px;
-            padding: 10px 8px;
         }
         #header-naverpay > div {
             background-position: -248px -260px;
@@ -168,6 +172,9 @@
                 </button>
             </div>
             <style>
+                #search {
+                     margin-bottom: 10px;
+                    }
                 #search > form{
                     display: inline-flex;
                     width: 708px;
@@ -324,6 +331,25 @@
                 }
                 #nav a{
                     text-decoration: none;
+                    text-align: center;
+                }
+                #nav a div{
+                    margin: 0 auto;
+                    position: relative;
+                    text-align: center;
+                    display: inline-flex;
+                }
+                #nav a div::after{
+                    z-index: 1;
+                    position: relative;
+                    content: '';
+                    margin: 2px;
+                    display: inline-block;
+                    background-image: url(https://pm.pstatic.net/resources/asset/sp_main.04eb92b7.png);
+                    background-size: 463px 442px;
+                    background-repeat: no-repeat;
+                    width: 40px;
+                    height: 40px;
                 }
                 #nav a:visited{
                     color:black;
@@ -332,11 +358,55 @@
                     width: 64px;
                     margin-left: 4px;
                 }
-                #nav li:nth-of-type(1){
+                #nav li:nth-last-of-type(1){
                     margin-left: 0;
                 }
-                #nav li:nth-of-type(2){
-
+                #nav li a div::before{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                    left: -3px;
+                    background-image: url(https://pm.pstatic.net/resources/asset/sp_main.04eb92b7.png);
+                    background-size: 463px 442px;
+                    background-position: -153px -142px;
+                    background-repeat: no-repeat;
+                    width: 50px;
+                    height: 50px;
+                }
+                #nav li:nth-of-type(1) a div::after{
+                    background-position: -205px -219px;
+                }
+                #nav li:nth-of-type(2) a div::after{
+                    background-position: -41px -219px;
+                }
+                #nav li:nth-of-type(3) a div::after{
+                    background-position: 0px -219px;
+                }
+                #nav li:nth-of-type(4) a div::after{
+                    background-position: -41px -260px;
+                }
+                #nav li:nth-of-type(5) a div::after{
+                    background-position: -270px -205px;
+                }
+                #nav li:nth-of-type(6) a div::after{
+                    background-position: -123px -260px;
+                }
+                #nav li:nth-of-type(7) a div::after{
+                    background-position: 0px -260px
+                }
+                #nav li:nth-of-type(8) a div::after{
+                    background-position: -270px 0px;
+                }
+                #nav li:nth-of-type(9) a div::after{
+                    background-position: -164px -260px;
+                }
+                #nav li:nth-of-type(10) a div::after{
+                    background-position: -270px -164px;
+                }
+                #nav li a span{
+                    display: inline-block;
+                    margin-top: 7px;
                 }
             </style>
             <div id="nav">
@@ -362,7 +432,7 @@
                     <li>
                         <a href="">
                             <div></div>
-                            <span>쇼핑</span>
+                            <span>스토어</span>
                         </a>
                     </li>
                     <li>
