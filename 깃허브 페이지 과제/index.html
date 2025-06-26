@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+         margin: 0;
+         padding: 0;
+        height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #202020;
+        color: white;
+    }
+
+    a {
+         color: white;
+         text-decoration: none;
+         font-size: 13px;
+    }
+
+    .content-wrapper {
+        min-height: 100vh;
+        display: flex;
+         flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        padding: 20px 40px;
+    }
+
+    .logo {
+        width: 30px;
+        margin-right: 20px;
+    }
+
+    .menu {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .auth-links {
+        margin-left: auto;
+        display: flex;
+        gap: 10px;
+    }
+
+    .auth-links a {
+        border: 1px solid white;
+        border-radius: 6px;
+        padding: 4px 8px;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 60px;
+        padding: 70px 300px 0;
+        flex: 1;
+        align-items: start;
+    }
+
+    .left h1 {
+        font-size: 60px;
+        margin: 0 0 20px;
+        font-weight: 600;
+    }
+
+    .left p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .right {
+        margin-top: -40px;
+        margin-bottom: 60px;
+    }
+    .box {
+        background-color: white;
+        color: black;
+        padding: 24px;
+        border-radius: 6px;
+        width: 100%;
+    }
+
+    .box a {
+        color: #0969da;
+        text-decoration: underline;
+        }
+
+    .box label {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+        color: #24292f;
+        margin-top: 12px;
+        }
+
+    .box input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        border: 1px solid #d0d7de;
+        font-size: 13px;
+        background-color: white;
+    }
+
+    .box input:focus, .box input.filled {
+        outline: none;
+        border-color: #0366d6;
+        background-color: #e0f0ff;
+    }
+
+    .box .note {
+        font-size: 12px;
+        color: #57606a;
+        margin-bottom: 15px;
+    }
+
+    .box button {
+        width: 100%;
+        height: 50px;
+        background-color: #2ea44f;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    .box .terms {
+        font-size: 12px;
+        color: #57606a;
+        line-height: 1.5;
+    }
+
+    .footer {
+        background-color: white;
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .footer img {
+        width: 600px; 
+        height: auto;
+        display: block;
+        margin: -55px 100px 0 auto; 
+        position: relative;
+        z-index: 1;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <div class="header">
+      <img src="./github-fill.svg" class="logo" alt="GitHub Logo" />
+      <ul class="menu">
+        <li class="dropdown">
+        Why GitHub?
+        <img src="./arrow-down.svg" alt="dropdown" style="width: 10px; margin-left: 4px; vertical-align: middle;" />
+        </li>
+        <li>Team</li>
+        <li>Enterprise</li>
+        <li class="dropdown">
+        Explore
+        <img src="./arrow-down.svg" alt="dropdown" style="width: 10px; margin-left: 4px; vertical-align: middle;" />
+        </li>
+        <li>Marketplace</li>
+        <li class="dropdown">
+        Pricing
+        <img src="./arrow-down.svg" alt="dropdown" style="width: 10px; margin-left: 4px; vertical-align: middle;" />
+        </li>
+      </ul>
+      <div class="auth-links">
+        <a href="#">Sign in</a>
+        <a href="#">Sign up</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <h1>Built for <br />
+            developers
+        </h1>
+        <p>
+          GitHub is a development platform inspired by the way you work. From
+          <b>open source</b> to <b>business</b>, you can host and review code,
+          manage projects, and build software alongside 50 million developers.
+        </p>
+      </div>
+
+      <div class="right">
+        <div class="box">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Enter your username" />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Enter your email" />
+
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter your password" />
+          <p class="note">
+            Make sure it’s at least 15 characters OR at least 8 characters
+            including a number and a lowercase letter. <a href="#">Learn more.</a>
+          </p>
+          <button>Sign up for GitHub</button>
+          <p class="terms">
+            By clicking “Sign up for GitHub”, you agree to our
+            <a href="#">Terms of Service</a> and
+            <a href="#">Privacy Statement</a>. We'll occasionally send you
+            account related emails.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <img src="./footer.png" alt="footer image" />
+    </div>
+    <script>
+      document.querySelectorAll('.box input').forEach(input => {
+        const updateBg = () => {
+          input.classList.toggle('filled', input.value.trim() !== '');
+        };
+        input.addEventListener('input', updateBg);
+        input.addEventListener('blur', updateBg);
+        updateBg();
+      });
+    </script>
+  </div>
+</body>
+</html>
