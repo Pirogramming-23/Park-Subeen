@@ -22,3 +22,5 @@ while num < 31:
         break
 
     turn = "playerB" if turn == "playerA" else "playerA"
+
+print(f"{turn} win!")
