@@ -6,27 +6,52 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
 </head>
-<body>
-  <h1><a href="index.html">WEB</a></h1>
-  <input id="night_day" type="button" value="night" onclick="
-    nightDayHandler(this);
-  ">
-  <ol>
-    <li><a onclick="fetchPage('1.html')">HTML</a></li>
-    <li><a onclick="fetchPage('2.html')">CSS</a></li>
-    <li><a onclick="fetchPage('3.html')">JavaScript</a></li>
-  </ol>
-  <article>
- 
-  </article>
-  <script>
-  function fetchPage(name){
-    fetch(name).then(function(response){
-      response.text().then(function(text){
-        document.querySelector('article').innerHTML = text;
-      })
-    });
-  }
+  <body>
+    <h1><a href="#!welcome">WEB</a></h1>
+    <input id="night_day" type="button" value="night" onclick="
+      nightDayHandler(this);
+    ">
+    <ol id="nav">
+      <li><a href="#!html" onclick="fetchPage('1.html')">html</a></li>
+      <li><a href="#!css" onclick="fetchPage('2.html')">css</a></li>
+      <li><a href="#!javascript" onclick="fetchPage('3.html')">javascript</a></li>
+    </ol>
+    <article>
+  
+    </article>
+    <script>
+    const routes = {
+      html: '1.html',
+      css: '2.html',
+      javascript: '3.html',
+      welcome: 'welcome.html'
+    };
+
+    function fetchPage(name){
+      const file = routes[name];
+      if (!file) {
+        document.querySelector('article').innerHTML = '<h2>Page Not Found</h2>';
+        return;
+      }
+
+      fetch(file).then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        });
+      });
+    }
+
+    function loadFromHash() {
+      if(location.hash){
+        const key = location.hash.substr(2);
+        fetchPage(key);
+      } else {
+        fetchPage('welcome');
+      }
+    }
+
+    loadFromHash();
+    window.addEventListener('hashchange', loadFromHash);
   </script>
-</body>
+  </body>
 </html>
