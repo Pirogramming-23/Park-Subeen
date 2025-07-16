@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>아이디어 목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card-content h2 {
+      font-size: 1.2em;
+      margin: 0 0 10px;
+      color: #333;
+    }
+    .card-content p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+    .buttons button {
+      padding: 6px 12px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #4285f4;
+      color: white;
+      transition: background-color 0.2s;
+    }
+    .buttons button:hover {
+      background-color: #3367d6;
+    }
+    .nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #4285f4;
+    }
+    .pagination {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+     .image-wrapper {
+        position: relative;
+     }
+      .star-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 24px;
+        color: gold;
+      }
+  </style>
+</head>
+<body>
+  <h1>아이디어 목록</h1>
+
+  <form method="get" style="text-align: center; margin-bottom: 20px;">
+    <label for="order">정렬 기준: </label>
+    <select name="order" id="order" onchange="this.form.submit()">
+      <option value="-created_at" {% if order == '-created_at' %}selected{% endif %}>최신순</option>
+      <option value="created_at" {% if order == 'created_at' %}selected{% endif %}>등록순</option>
+      <option value="title" {% if order == 'title' %}selected{% endif %}>이름순</option>
+      <option value="-stars_count" {% if order == '-stars_count' %}selected{% endif %}>찜하기순</option>
+    </select>
+  </form>
+
+  <div class="container">
+    {% for idea in page_obj %}
+      <div class="card">
+        <div class="image-wrapper">
+          <a href="{% url 'ideas:idea_detail' idea.pk %}">
+            {% if idea.image %}
+              <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+            {% else %}
+              <img src="https://via.placeholder.com/300x180?text=No+Image" alt="No image">
+            {% endif %}
+          </a>
+            {% if idea.pk in user_starred_ids %}
+              <span class="star-icon">⭐</span>
+            {% endif %}
+        </div>
+        <div class="card-content">
+          <a href="{% url 'ideas:idea_detail' idea.pk %}">
+            <h2>{{ idea.title }}</h2>
+          </a>
+          <p>관심도: <span id="interest-{{ idea.pk }}">{{ idea.interest }}</span></p>
+          <div class="buttons">
+            <button onclick="adjustInterest('{{ idea.pk }}', 1)">+</button>
+            <button onclick="adjustInterest('{{ idea.pk }}', -1)">-</button>
+            <button onclick="toggleStar('{{ idea.pk }}')">⭐ 찜하기</button>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">등록된 아이디어가 없습니다.</p>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}&order={{ order }}">이전</a>
+    {% endif %}
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}&order={{ order }}">다음</a>
+    {% endif %}
+  </div>
+
+  <div class="nav">
+    <a href="{% url 'ideas:idea_create' %}">아이디어 등록하기</a> |
+    <a href="{% url 'ideas:devtool_list' %}">개발툴 관리</a>
+  </div>
+
+  <script>
+    function toggleStar(pk) {
+      fetch(`/idea/${pk}/toggle_star/`, { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => alert(data.status));
+    }
+
+    function adjustInterest(pk, delta) {
+      fetch(`/idea/${pk}/adjust_interest/?delta=${delta}`, { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById(`interest-${pk}`).innerText = data.interest;
+        });
+    }
+  </script>
+</body>
+</html>
