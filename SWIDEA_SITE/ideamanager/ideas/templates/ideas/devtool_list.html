@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>개발툴 목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .list {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .list-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .list-item:last-child {
+      border-bottom: none;
+    }
+    .list-item a {
+      text-decoration: none;
+      color: #4285f4;
+      font-weight: bold;
+    }
+    .nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #4285f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>개발툴 목록</h1>
+  <div class="list">
+    {% for tool in devtools %}
+      <div class="list-item">
+        <a href="{% url 'ideas:devtool_detail' tool.pk %}">{{ tool.name }}</a>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">등록된 개발툴이 없습니다.</p>
+    {% endfor %}
+  </div>
+  <div class="nav">
+    <a href="{% url 'ideas:devtool_create' %}">개발툴 등록하기</a> |
+    <a href="{% url 'ideas:idea_list' %}">아이디어 목록으로</a>
+  </div>
+</body>
+</html>
