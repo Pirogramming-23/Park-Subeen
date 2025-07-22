@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>로그아웃</title>
+</head>
+<body>
+  <h2>정말 로그아웃 하시겠습니까?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">로그아웃</button>
+  </form>
+</body>
+</html>

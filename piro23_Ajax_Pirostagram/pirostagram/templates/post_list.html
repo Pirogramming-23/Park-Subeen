@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pirostagram</title>
+  <script src="{% static 'js/ajax.js' %}" defer></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div style="text-align: right; margin: 10px;">
+  {% if user.is_authenticated %}
+    <span>{{ user.username }}님 환영합니다! </span>
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">로그아웃</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">로그인</a>
+  {% endif %}
+</div>
+
+{% for post in posts %}
+  <div class="post" data-post-id="{{ post.id }}">
+    <img src="{{ post.image.url }}" width="300"><br>
+    <p>{{ post.content }}</p>
+
+    <button class="like-btn {% if post.id in liked_post_ids %}liked{% endif %}">
+      ❤️ <span class="like-count">{{ post.likes.count }}</span>
+    </button>
+
+    <ul class="comment-list">
+      {% for comment in post.comments.all %}
+        <li data-comment-id="{{ comment.id }}">
+          {{ comment.author }}: {{ comment.text }}
+          {% if comment.author == user %}
+            <button class="delete-comment-btn">삭제</button>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <form class="comment-form">
+      <input type="text" name="text" placeholder="댓글 작성">
+      <button type="submit">등록</button>
+    </form>
+  </div>
+  <hr>
+{% empty %}
+  <p>게시물이 없습니다.</p>
+{% endfor %}
+
+
+</body>
+</html>
